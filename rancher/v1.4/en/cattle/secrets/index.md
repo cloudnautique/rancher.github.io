@@ -26,18 +26,36 @@ Prior to installing Rancher Server, there are a couple of pre-requisites that ne
 * Using the Vault CLI or API:
   * Create a new encryption key named `rancher`
   * Create a Vault access token that can encrypt/decrypt using the `rancher` key
-    * This token must be scoped with a policy for Rancher server to use the following Vault Transit endpoints. The `<KEY>` in this list is the `rancher` key that was created.
+    * The following Vault policy.hcl works for the `rancher` key:
       
       ```
-      >  transit/random/<KEY>
-      > 
-      >  transit/hmac/<KEY>
-      > 
-      >  transit/encrypt/<KEY>
-      > 
-      >  transit/decrypt/<KEY>
-      >  
-      >  transit/verify/<KEY>
+      path "transit/random/*" {
+  	     capabilities = ["create", "update"]
+      }
+
+      path "transit/hmac/*" {
+         capabilities = ["create", "update"] 
+      }
+
+      path "transit/encrypt/rancher" {
+         capabilities = ["create", "update"]
+      }
+
+      path "transit/decrypt/rancher" {
+         capabilities = ["create", "update"]
+      }
+
+      path "transit/verify/rancher/*" {
+         capabilities = ["create", "update", "read"]
+      }
+
+      path "transit/keys/*" {
+         capabilities = ["deny"]
+      }
+
+      path "sys/*" {
+         capabilities = ["deny"]
+      }
       ```
      
 
