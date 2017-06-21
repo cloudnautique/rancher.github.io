@@ -2,8 +2,8 @@ name: Rancher Documentation
 description: Documentation for Rancher
 
 
-URL: http://rancher.github.io
-baseurl: ""
+URL: http://rancher.local
+baseurl: "/docs"
 
 exclude: []
 

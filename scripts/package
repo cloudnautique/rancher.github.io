@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source $(dirname $0)/version
+
+REPO=${REPO:-rancher}
+TAG=${TAG:-${IMAGE_VERSION}}
+
+cd $(dirname $0)/..
+
+docker build --rm -t ${REPO}/docs:${TAG} .

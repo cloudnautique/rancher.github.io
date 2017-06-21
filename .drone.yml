@@ -1,0 +1,12 @@
+pipeline:
+ build:
+   image: alpine
+   commands: echo "hello"
+
+ docker:
+   image: plugins/docker
+   repo: cloudnautique/rancher.github.io
+   tag: latest
+   when:
+     branch: master
+   secrets: [docker_username, docker_password]
